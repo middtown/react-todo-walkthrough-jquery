@@ -1,44 +1,31 @@
 ## Sprint 4: Creating Todos
-We're going to want to create a component that handles the form for creating todos. Before we build this feature out, How can we pass state from a child component to a parent? The opposite is easy, because we're able to just pass properties to our child components. Child state to parent state is much more difficult because we can't pass properties like that. Its unidirectional. The answer? Callbacks.
 
-Lets write this feature to shed some more light on it.
 
-Let's create a file `src/components/CreateTodoForm.js` and fill it out with the following:
+Creating todos will require a form on the client side.  In this sprint, you'll create a `CreateTodoForm` component to handle that form. The new component will join `TodoList` as one of the children of the `TodosContainer` component. 
+
+
+<!-- The state of the `CreateTodoForm` will have an effect on the state of the todos overall Before we build this feature out, there How can we pass state from a child component to a parent? The opposite is easy, because we're able to just pass properties to our child components. Child state to parent state is much more difficult because we can't pass properties like that. Its unidirectional. The answer? Callbacks.
+ -->
+
+
+### Create Todo Form and Events
+
+1. Create a file called `src/components/CreateTodoForm.js`, and add the following code:
 
 ```js
+// src/components/CreateTodoForm.js
 import React, {Component} from 'react'
 
 class CreateTodoForm extends Component {
-  constructor(){
-    super()
-    //sets the initial state via the constructor! that's the constructor's job :)
-    this.state = {
-      todo: ''
-    }
-  }
-  onInputChange(event){
-    this.setState({
-      todo: event.target.value
-    })
-  }
-  onFormSubmit(event){
-    event.preventDefault()
-    let todo = this.state.todo
-    this.props.createTodo(todo)
-    this.setState({
-      todo: ""
-    })
-  }
   render(){
     return (
       <div className='createForm todoForm'>
         <h2>Create Todo Here!</h2>
-        <form onSubmit={event => this.onFormSubmit(event)}>
+        <form>
           <input
-            onChange={event => this.onInputChange(event)}
             placeholder='Write a todo here ...'
             type='text'
-            value={this.state.todo} />
+            value='write a new todo' />
           <button type='submit'>Create Todo!</button>
         </form>
       </div>
@@ -49,98 +36,154 @@ class CreateTodoForm extends Component {
 export default CreateTodoForm
 ```
 
-Whoa.. pauuuuseee. Let's take a look. First let's look at what we're rendering:
+2. Add a `CreateTodoForm` component to the `TodosContainer` component's `render` method.
 
 ```js
 render(){
-  return (
-    <div className='createForm todoForm'>
-      <h2>Create Todo Here!</h2>
-      <form onSubmit={event => this.onFormSubmit(event)}>
-        <input
-          onChange={event => this.onInputChange(event)}
-          placeholder='Write a todo here ...'
-          type='text'
-          value={this.state.todo} />
-        <button type='submit'>Create Todo!</button>
-      </form>
-    </div>
-  )
-}
+    return (
+      <div className='todosContainer'>
+        <CreateTodoForm />
+        <TodoList
+          todos={this.state.todos} />
+      </div>
+    )
+  }
 ```
 
-We define the initial state of the form in the constructor.
+3. Briefly try out the form on the `/todos` page.  Identify which part of your code set up the text inside the input box.  What happens if you submit the form?  What happens if you try to change the input?
 
-Looks like a form. When it gets submitted we run a function (we're using es6 arrow function here to pass an anonymous function with an event argument). That function is the `.onFormSubmit` function defined in this component.
-
-> `onSubmit` is reserved JSX to define an event for form submission, almost identical to `ng-submit` in angular
-
-Similarly when the `input` is changed we run `.onInputChange`.
-
-
-Let's take a look at the `onInputChange` function first:
+4. Instead of the `value` of the input box staying the same, it will be tied into the component's state, and it will change when users type in the input box.  To get started, set up `state` in the `CreateTodoForm` component.
 
 ```js
-onInputChange(event){
-  this.setState({
-    todo: event.target.value
-  })
+// inside src/components/CreateTodoForm.js
+class CreateTodoForm extends Component {
+  constructor(){
+    // use Component's constructor
+    super()
+    // set initial state
+    this.state = {
+      todo: ''
+    }
+  }
+  render(){
+    return (
+      <div className='createForm todoForm'>
+        <h2>Create Todo Here!</h2>
+        <form>
+          <input
+            placeholder='Write a todo here ...'
+            type='text'
+            value={this.state.todo} />
+          <button type='submit'>Create Todo!</button>
+        </form>
+      </div>
+    )
+  }
 }
 ```
 
-Basically whenever this input changes, we're going to set the state of this component to have a property of `todo` and it's value is whatever the input field's value is.
+5. Use the code below to add an `onChange` event handler to the `input` text box:
 
-`onFormSubmit`:
+```jsx
+<input
+  onChange={event => this.onInputChange(event)}
+  placeholder='Write a todo here ...'
+  type='text'
+  value={this.state.todo} />
+```
+
+> `onChange` is reserved JSX to define an event for an input change, almost identical to `ng-change` in angular
+
+6. Think critically about the code above. What kind of value is the JSX going to add in for the `onChange` attribute?
+
+<details><summary>click for answer</summary>The value inside <code>{}</code> is an anonymous function that takes in an event and calls another function with that event as the argument.</details>
+
+7. For the event handler to keep `state` updated, there must be a `this.onInputChange` function.  Add the `onInputChange` function to the `CreateTodoForm` class.
+
+```js
+class CreateTodoForm extends Component {
+  constructor(){
+    super()
+
+    this.state = {
+      todo: ''
+    }
+  }
+
+  onInputChange(event){
+    console.log('create todo input changed')
+  }
+
+  // ...
+```
+
+8. Modify the `onInputChange` function so that instead of logging a message to the console, it changes the state of this should have value `event.target.value`. 
+
+Hint: for an example of setting state, you can reference the `TodosContainer` class's `fetchData` method.
+
+9. When the form is submitted, the page currently refreshes. Instead, it should make an AJAX request to the super-crud API to add the new todo.  In the JSX code for the component, add an `onSubmit` attribute to the `form` element:
+
+```js
+<form onSubmit={event => this.onFormSubmit(event)}>
+```
+
+10. Create an `onFormSubmit` method inside the `CreateTodoForm` component class. 
 
 ```js
 onFormSubmit(event){
+  console.log('form submitted')
   event.preventDefault()
-  let todo = this.state.todo
-  this.props.createTodo(todo)
+  let newTodo = this.state.todo
+  this.props.createTodo(newTodo)
   this.setState({
-    todo: ""
+    todo: ''
   })
 }
 ```
 
-First off, prevent the default action as form submission will cause a request to fire. Then instantiate a variable todo from the state. Lastly we also set the todo property of the state as an empty string. We skipped one line though, `this.props.createTodo(todo)` What does that tell us about where `createTodo` comes from?
+> `onSubmit` is reserved JSX to define an event for form submission, almost identical to `ng-submit` in angular
 
-It needs to be supplied from its parent component. Let's update the `src/containers/TodosContainer.js` so that we can successfully create todos:
+11. Think critically about the code snippet above. 
 
-In `src/containers/TodosContainer.js`:  
+* What does `event.PreventDefault()` do?
+
+* What will the value of `this.state.todo` be when the form is submitted?
+
+* Is `this.props.createTodo` already a function? (Check where the `CreateTodoForm` is `render`ed in the `TodosContainer` class.)
+
+### Todo Creation 
+
+
+1. Since `createTodo` is an attribute of a `CreateTodoForm` component's `prop`, it needs to be supplied by the parent component. Update the `src/containers/TodosContainer.js` to pass a `createTodo` function into the form component:
 
 ```js
-// At the top import the component
-import CreateTodoForm from '../components/CreateTodoForm'
-
-// adding rest of code to container, more code above
-createTodo(todo) {
-    let newTodo = {
-        body: todo,
-        completed: false
-    }
-    TodoModel.create(newTodo).then((res) => {
-        let todos = this.state.todos
-        let newTodos = todos.push(res.data)
-        this.setState({newTodos})
-    })
+// src/containers/TodosContainer.js
+// ...
+createTodo(newBody) {
+  console.log('creating todo', newBody)
 }
 render(){
   return (
     <div className="todosComponent">
+      <CreateTodoForm
+        createTodo={this.createTodo.bind(this)} />
       <Todos
         todos={this.state.todos} />
-      <CreateTodoForm
-        createTodo={this.createTodo.bind(this)}
-        />
     </div>
   )
 }
 ```
 
-We see that we pass the `createTodo` function of THIS container component TO the `CreateTodoForm` component. We have to `bind(this)` so that `this` is bound to the container component.
+2. Think critically about the code above. 
 
-In the actual `createTodo` function. We can see that we construct everything we need about a todo in an object and store it in a variable. We then pass that object to a `.create` method on our `TodoModel` that ... hasn't been defined yet. Let's define it now. In `src/models/Todo.js`:
+> The `render` method for `TodosContainer` passes the `createTodo` function of the container component TO the `CreateTodoForm` component. 
+
+> The `bind(this)` portion of the code means the `createTodo` function will use THIS `TodosContainer` component as `this`, even if it's called from a different part of the code (like it will be, inside `CreateTodoForm`'s `onFormSubmit` method).
+
+### AJAX 
+
+3. The `createTodo` method should use the todo body passed in to make an AJAX request to the server.  AJAX is the role of the `TodoModel` class, though, so add a static `create` method to that model class. 
+
 
 ```js
 static create(todo) {
@@ -149,9 +192,28 @@ static create(todo) {
 }
 ```
 
-Using axios, we create the todo. In the promise, we fetch all the todos and set the state to encapsulates those `todos` from the `res`ponse.
+4. Back in the `TodoContainer` class's `createTodo` method, group the form data about a todo in an object and store it in a variable. Then, pass that object into the `TodoModel.create` method.
 
-## Backtrack - How did we pass state from child to parent?
+```js
+createTodo(newBody) {
+  let newTodo = {
+    body: newBody,
+    completed: false
+  }
+  TodoModel.create(newTodo).then((res) => {
+    console.log('created todo', res.data)
+    let todos = this.state.todos
+    let newTodos = todos.push(res.data)
+    this.setState({newTodos})
+  })
+}
+```
+
+5. Think critically about the code above. What happens after the todo is successfully created?
+
+<details><summary>click for an answer</summary>A new <code>todos</code> variable contains all the current todos from the <code>TodosContainer</code> state. After the new todo from the super-crud API response is added to the array, the function sets the state to be that and set the state to encapsulates those `todos` from the `res`ponse.</details>
+
+### Backtrack - How did we pass state from child to parent?
 
 Remember that in the submit event of the form, we used a function `this.props.createTodo()`:
 
@@ -160,8 +222,8 @@ In `src/components/CreateTodoForm`:
 ```js
 onSubmit(event){
   event.preventDefault()
-  let todo = this.state.todo
-  this.props.createTodo(todo)
+  let newTodo = this.state.todo
+  this.props.createTodo(newTodo)
   this.setState({
     todo: ""
   })
@@ -173,13 +235,11 @@ We pass `createTodo` from the container as `props`. In `src/containers/TodosCont
 ```js
 render(){
   return (
-    <div className="todosComponent">
-      <Todos
-        todos={this.state.todos}
-        onDeleteTodo={this.deleteTodo.bind(this)} />
+    <div className='todosContainer'>
       <CreateTodoForm
-        createTodo={this.createTodo.bind(this)}
-        />
+      createTodo={this.createTodo.bind(this)} />
+      <TodoList
+        todos={this.state.todos} />
     </div>
   )
 }

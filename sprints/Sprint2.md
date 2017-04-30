@@ -1,12 +1,20 @@
 ## Sprint 2: Containers and Nested Components
 
-React components should be FIRST: focused, independent, reusable, small, and testable.
+React components should be FIRST: 
 
-In order to help keep components small, a good practice is to move the business logic surrounding a component's state to a container component. This is just a larger component used for organization.
+- focused,  
+- independent,   
+- reusable,   
+- small,    
+- and testable.  
+
+In order to help keep components small, a good practice is to move the business logic surrounding a component's state to a container component. This "container component" is just a larger component used for organization.
 
 The goal of this sprint is to create a container component to manage the app's list of todos and the logic around them. This component will be what shows when the user is on the `/todos` route.  It will start out very simple like the `Header` component, but it will end up much more complex.
 
-1. Create a `containers` folder and then a file for the Todo container component:
+The `TodosContainer` component will eventually contain a list of todos and the form to create new todos. 
+
+1. Inside `src`, create a `containers` folder and then a file for the Todo container component:
 
 ```bash
 $ mkdir src/containers
@@ -42,12 +50,12 @@ module.exports = (
   <Route path='/' component={App}>
     <Route path='/todos' component={TodosContainer}/>
   </Route>
-);
+)
 ```
 
-4. Go back to the home page, and click on the link. The warning or error from before should be gone now, since the `/todos` route is defined.
+4. Go back to the home page, and click on the link. The warning or error from before should be gone now, since the `/todos` route is defined.  However, the content from `TodosContainer` doesn't show on the page yet!
 
-5. Note that the `Route` for `/todos` is nested within the `Route` for `'/'`.  In `src/App.js`, add this line to tell the `App` component what to render when it has this nested relationship through routes:
+5. In `src/App.js`, add this line to tell the `App` component what to render when it has this nested relationship through routes:
 
 ```js
 render() {
@@ -60,7 +68,13 @@ render() {
 }
 ```
 
+
 6. Think critically about the code snippet above.  What is `this.props.children`? How is it related to the structure of `Route`s in  `src/config/routes.js`?
+
+
+> Note that the `Route` for `/todos` is nested within the `Route` for `'/'`.  That's why `this.props.children` for the `App` component will include the TodosContainer from the `/todos` route.
+
+7. Check the page in the browser again. 
 
 ### Style Break!
 

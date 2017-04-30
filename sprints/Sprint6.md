@@ -39,7 +39,7 @@ render(){
 
 Why would we add editingTodoId to the container? Why might the container be aware of a ***single*** todo ID, in the context of an edit?
 
-In the `components/Todos.js`, add `editingTodoId` and `onEditTodo` to `<Todo>` props:
+In `components/TodoList.js`, add `editingTodoId` and `onEditTodo` to `<Todo>` props:
 
 
 ```js
@@ -60,7 +60,7 @@ let todos = this.props.todos.map( (todo) => {
 ```
 
 <!-- Todo changes -->
-In `components/Todo.js` We need to use the method:
+In `components/Todo.js` We need to use this method:
 
 ```js
 render(){
@@ -68,7 +68,7 @@ render(){
       console.log(`${this.props.todo.body} is being edited`);
     }
     return(
-      <p data-todos-index={this.props.todo.id}>
+      <p data-todos-index={this.props.todo._id}>
         <span onClick={() => this.props.onEditTodo(this.props.todo)}>
           {this.props.todo.body}
         </span>
@@ -82,7 +82,9 @@ render(){
   }
 ```
 
-Phew! Now we can test out our props-flow by clicking on a todo and trigger a `console.log`.
+Now we can test out our props-flow by clicking on a todo and triggering a `console.log`.
+
+
 ### Breaking it Down:
 
 #### Trickling Down
@@ -120,9 +122,9 @@ render(){
 
 This certainly the trickiest part of the lesson-- the rest is easy by comparison (still pretty tough, at first!).
 
-### Replacing the console.log with a Form for editing Todos
+### Replacing the `console.log` with a Form for editing Todos
 
-The next steps here involve composing a form in place of where we have that `console.log` in `components/Todo.js`.
+The next steps here involve composing a form in place of where we have that `console.log` in `src/components/Todo.js`.
 
 You should replace it with something like this:
 
@@ -138,8 +140,7 @@ return (
 You will then have to both write that component and then import it into `components/Todo.js`:
 
 ```js
-
-//TodoForm.js
+// src/components/TodoForm.js
 import React, {Component} from 'react'
 
 class TodoForm extends Component {
@@ -225,4 +226,4 @@ Then we make our way down from `TodosContainer` to `Todos` to `Todo`, with `stat
 
 ## Conclusion
 
-We've learned how to do full CRUD for a basic todo app here. We've seen in particular how props can be trickled down through parent and child components to make a very modular app. We've also been introduced to the magic of axios for network calls from our frontend.
+We've learned how to do full CRUD for a basic todo app! We've seen in particular how props can be trickled down through parent and child components to make a very modular app. We've also been introduced to the magic of axios for network calls from our frontend.
