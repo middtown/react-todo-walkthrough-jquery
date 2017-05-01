@@ -146,6 +146,7 @@ onFormSubmit(event){
 
 </details>
 
+<br>
 
 10. Instead of just logging a message, update the `onFormSubmit` method. It should call a `this.props.onUpdateTodo` method using the `updatedTodoBody` from the component's state as an argument. Then, it should reset the `updatedTodoBody` to an empty string so the form value clears.
 
