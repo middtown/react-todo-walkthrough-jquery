@@ -176,11 +176,12 @@ export default TodoList
 <details><summary>click for an explanation</summary>The <code>todoArray</code> is an array of <code>Todo</code> components, with one component for each todo object in <code>thsi.props.todos</code>.  
 </details>
 
+<br>
 
 <!-- In this component, we have a property called todos. When we eventually use this component, we need to pass it that property. Once we have our todos, it takes each one and maps a `Todo` component to the variable `todos`. Then renders all of the todos. We can use the map function to render multiple components for each individual todo and store them in a variable. We just need to make sure we bind `this` in case we need to access properties from the `Todos` component later. -->
 
 
-6. Remove the test todo and the `import Todo` line from the `TodoContainer` component.  You can also remove the test `TodoModel.all` call if you'd like.
+3. Remove the test todo and the `import Todo` line from the `TodoContainer` component.  You can also remove the test `TodoModel.all` call if you'd like.
 
 ### Render a `TodoList`
 
@@ -288,10 +289,13 @@ The final piece of code sets `this.state` to be an empty array.
 
 <details><summary>click for answer</summary> <code>[]</code></details>
 
+<br>
+
 * How can the component's state be changed later?
 
 <details><summary>click for answer</summary>The state can be set at any other time using <code>this.setState()</code></details>
 
+<br>
 5.  Examine the following code snippet:
 
 ```js
@@ -307,7 +311,9 @@ fetchData(){
 
 6. Explain the `fetchData` function's role in your own words. 
 
-<details><summary>click for an idea</summary>This function uses <code>TodoModel</code> to retrieve todos from the super-crud API. After that request completes, `then` the function changes the state of the container component. The new state has the value of `todos` be part of the data from the AJAX response.</details>
+<details><summary>click for an idea</summary>This function uses <code>TodoModel</code> to retrieve todos from the super-crud API. After that request completes, <code>then</code> the function changes the state of the container component. The new state has the value of <code>todos</code> be part of the data from the AJAX response.</details>
+
+<br>
 
 > Note: Any time `setState` is invoked, the component re-renders.
 
@@ -328,7 +334,8 @@ Every component in React undergoes a component lifecycle. There are several "hoo
 8. Think critically about the last code snippet above. Why send a `GET` request after the TodoContainer component (and components inside it) have already been rendered?  For ideas, look for the `componentDidMount` section in [React's Component documentation](https://facebook.github.io/react/docs/react-component.html).
 
 <details><summary>click for related resources</summary> 
-[Other devs have wondered about this too](http://stackoverflow.com/questions/39338464/reactjs-why-is-the-convention-to-fetch-data-on-componentdidmount). AJAX calls are asynchronous, and we'll always need to re-render after an AJAX call completes. Here's the [Facebook recommendation](https://facebook.github.io/react/docs/react-component.html#componentdidmount) saying to make initial AJAX calls inside `componentDidMount`.</details>
+
+<a href="http://stackoverflow.com/questions/39338464/reactjs-why-is-the-convention-to-fetch-data-on-componentdidmount">Other devs have wondered about this too.</a> AJAX calls are asynchronous, and we'll always need to re-render after an AJAX call completes. Here's the <a href="https://facebook.github.io/react/docs/react-component.html#componentdidmount">Facebook recommendation</a> saying to make initial AJAX calls inside <code>componentDidMount</code>.</details>
 
 ### Sending State Updates from Parents to Children
 
