@@ -98,6 +98,8 @@ class CreateTodoForm extends Component {
 
 <details><summary>click for answer</summary>The value inside <code>{}</code> is an anonymous function that takes in an event and calls another function with that event as the argument.</details>
 
+<br>
+
 7. For the event handler to keep `state` updated, there must be a `this.onInputChange` function.  Add the `onInputChange` function to the `CreateTodoForm` class.
 
 ```js
@@ -151,7 +153,7 @@ onFormSubmit(event){
 
 * Is `this.props.createTodo` already a function? (Check where the `CreateTodoForm` is `render`ed in the `TodosContainer` class.)
 
-### Todo Creation 
+### Todo Creation & AJAX
 
 
 1. Since `createTodo` is an attribute of a `CreateTodoForm` component's `prop`, it needs to be supplied by the parent component. Update the `src/containers/TodosContainer.js` to pass a `createTodo` function into the form component:
@@ -180,7 +182,6 @@ render(){
 
 > The `bind(this)` portion of the code means the `createTodo` function will use THIS `TodosContainer` component as `this`, even if it's called from a different part of the code (like it will be, inside `CreateTodoForm`'s `onFormSubmit` method).
 
-### AJAX 
 
 3. The `createTodo` method should use the todo body passed in to make an AJAX request to the server.  AJAX is the role of the `TodoModel` class, though, so add a static `create` method to that model class. 
 
@@ -211,7 +212,7 @@ createTodo(newBody) {
 
 5. Think critically about the code above. What happens after the todo is successfully created?
 
-<details><summary>click for an answer</summary>A new <code>todos</code> variable contains all the current todos from the <code>TodosContainer</code> state. After the new todo from the super-crud API response is added to the array, the function sets the state to be that and set the state to encapsulates those `todos` from the `res`ponse.</details>
+<details><summary>click for an answer</summary>A new <code>todos</code> variable contains all the current todos from the <code>TodosContainer</code> state. It adds the new todo from the response into a <code>newTodos</code> array, after all of the original todos. Then, it sets the component's state to the new array.</details>
 
 ### Backtrack - How did we pass state from child to parent?
 
