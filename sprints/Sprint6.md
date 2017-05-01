@@ -56,15 +56,15 @@ class Todo extends Component {
 
 > Just like the initial CreateTodoForm, these forms have some problems:
 
-> * They don't allow the user to change the input field. 
+> * They don't allow the user to change the input field.
 
-> * They use the default behavior for form submission (including reloading the page). 
+> * They use the default behavior for form submission (including reloading the page).
 
 > * They aren't connecting the value of the text in the input to any part of the component's `props` or `state`.
 
 4. Update the edit todo form JSX with an `onChange` attribute for the input element. The `onChange` should capture the change event and send it to another method of the class.  
 
-Also write a simple version of the new method that `console.log`s a message. 
+Also write a simple version of the new method that `console.log`s a message.
 
 > Consider calling the new method `onInputChange` to match the structure  used for `CreateTodoForm`.
 
@@ -78,7 +78,8 @@ Also write a simple version of the new method that `console.log`s a message.
     return (
       <div className='editTodoForm'>
         <form>
-          <input onChange={event => this.onInputChange(event)}
+          <input
+            onChange={event => this.onInputChange(event)}
             placeholder='Write updated todo here...'
             type='text'
             value='' />
@@ -117,7 +118,8 @@ Also write a simple version of the new method that `console.log`s a message.
 7. Set the `value` of the input in the edit todo form JSX to `this.state.updatedTodoBody`.
 
 ```js
-<input onChange={event => this.onInputChange(event)}
+<input
+  onChange={event => this.onInputChange(event)}
   placeholder='Write updated todo here...'
   type='text'
   value={this.state.updatedTodoBody} />
@@ -140,7 +142,7 @@ onFormSubmit(event){
 
 <details><summary>click for ideas</summary>
 
-* get the value from the form (the new todo text)  
+* get the value from the form or from `state` (the new todo text)  
 * send the value "up" to higher components by calling a method from `this.props`  
 * empty out the form value again
 
@@ -165,9 +167,9 @@ onFormSubmit(event){
 11. Check where the `TodoForm` is rendered in the `Todo` component.  Does the `Todo` component send through an `onUpdateTodo` method through props?
 
 
-### Set Up `onUpdateTodo` Method 
+### Set Up `onUpdateTodo` Method
 
-The `TodosContainer` controls the logic for todos, so the code for updating a todo will be added mostly in `TodosContainer` and then passed down to the `TodoForm` through props. 
+The `TodosContainer` controls the logic for todos, so the code for updating a todo will be added mostly in `TodosContainer` and then passed down to the `TodoForm` through props.
 
 1. Create an `updateTodo` method in the `TodosContainer` component class. For now, have it `console.log` a message.  
 
@@ -191,36 +193,39 @@ The `TodosContainer` controls the logic for todos, so the code for updating a to
 4. In `TodoList`, when rendering the `Todo` component, pass through the `this.props.onUpdateTodo` method as an `onUpdateTodo` prop.
 
 5. In `Todo`, when rendering the `EditTodoForm` component, pass through the `this.props.onUpdateTodo` method as an `onUpdateTodo` prop.
- 
+
 6. Try submitting the form again. If all elements are connected correctly, the log message from `updateTodo` in `TodosContainer` will appear in the console.
 
 ### Fill in AJAX Call to Update Todo
 
+1. Add a method to the `TodoModel` class that makes an AJAX call to update a todo through the super-crud API.
 
-1. Add a method to the `TodoModel` class that makes an AJAX call to update a todo through the super-crud API. 
-
-> Hint: reference the [axios documentation](https://github.com/mzabriskie/axios), [super-crud documentation](https://github.com/SF-WDI-LABS/super-crud-api), and the other methods in the `TodoModel` class.  
+> Hint: reference jQuery `$.ajax` documentation, [super-crud documentation](https://github.com/SF-WDI-LABS/super-crud-api), and the other methods in the `TodoModel` class.  
 
 > Hint: This method will need to take in the new `body` for the todo as well as the `id` of the todo you're updating.
 
+
 2. Now that the `TodoModel` has an `update` method, fill in the `TodosContainer`'s `updateTodo` method.
 
-> The `updateTodo` method will also need the updated `body` and the `id` for the todo, so you may need to modify the structure to have both of those parameters.  
-> Remember to modify `this.state.todos` to match the updated information once the API response comes back.
+> The `updateTodo` method will also need the updated `body` and the `id` for the todo, so you may need to modify the structure to have both of those parameters.
 
-3. In order for the `EditTodoForm` to call the new `updateTodo` method, it will need access to the `_id` of each todo.  Add the `todo` when rendering the `EditTodoForm` from the `Todo` class.
+> Remember to modify the item(s) in `this.state.todos` to match the updated information once the API response comes back.
+
+> You **should** see an error if you try to submit the form. It won't work until you're actually passing the `id` data through from the `EditTodoForm`.
+
+3. In order for the `EditTodoForm` to call the new `updateTodo` method, it will need access to the `_id` of each todo.  First, add the `todo` as a prop for `EditTodoForm` when rendering the `EditTodoForm` from the `Todo` class.
 
 4. In the `EditTodoForm` JSX, add `data-todo-id` to the `div`:
 
 ```js
 <div className='editTodoForm' data-todos-index={this.props.todo._id}>
-``` 
+```
 
 5. Modify the `EditTodoForm` class's `onFormSubmit` method to send the updated todo body *and* the todo id to `this.props.onUpdateTodo`.  
 
 6. Check the behavior of the edit form now. It should work!
 
-If you have problems, remember the solutions are available. 
+If you have problems, remember the solutions are available.
 
 
 
@@ -238,7 +243,7 @@ If you have problems, remember the solutions are available.
 
 
 
-<!-- 
+<!--
 
 
 In `containers/TodosContainer.js`:
@@ -294,7 +299,7 @@ return (
     buttonName="Update Todo!"/>
 )
 //...
-``` 
+```
 
 
 
@@ -359,7 +364,7 @@ let todos = this.props.todos.map( (todo) => {
 //...
 ```
 
- Todo changes 
+ Todo changes
 In `components/Todo.js` We need to use this method:
 
 ```js
@@ -529,7 +534,7 @@ Then we make our way down from `TodosContainer` to `Todos` to `Todo`, with `stat
 We've learned how to do full CRUD for a basic todo app! We've seen in particular how props can be trickled down through parent and child components to make a very modular app. We've also been introduced to the magic of axios for network calls from our frontend.
 
 
-3. 
+3.
 
 
 

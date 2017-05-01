@@ -1,18 +1,27 @@
-## Sprint 3: Fetching Data with Axios
+## Sprint 3: Fetching Data with AJAX
 
 React actually isn't as full-featured as some front-end frameworks like AngularJS or BackboneJS.  
 
 React relies on third party libraries to fetch data.
 
-Today, we'll be using a library called [Axios](https://github.com/mzabriskie/axios), a promise-based HTTP client for the browser and node.
+There are a lot of choices for which AJAX tools to use. Options include:
 
+- [Axios](https://github.com/mzabriskie/axios), a promise-based HTTP client for the browser and node.
+
+- [fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch), a new vanilla JavaScript web API available through most browsers
+
+- [XML HTTP Requests](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest), the old vanilla JavaScript web API for HTTP requests.
+
+- [jQuery](https://jquery.com/), which includes a `$.ajax` method for AJAX requests.
+
+> Since we're already familiar with jQuery, we'll use it here.  However, we won't need the entire jQuery library - React is going to handle DOM interactions for us.  Downloading the entire jQuery library would be a lot of extra space, so we'll use the `jquery-ajax` npm package, which just has `$.ajax` and other related jQuery functions.
 
 ### Set Up Model File Structure
 
-1. Install `axios` and create a `src/models` directory, which will manage AJAX requests for data. Also, make a `Todo.js` model file:
+1. Install `jquery-ajax` and create a `src/models` directory, which will manage AJAX requests for data. Also, make a `Todo.js` model file:
 
 ```bash
-$ npm install --save axios
+$ npm install --save jquery-ajax
 $ mkdir src/models
 $ touch src/models/Todo.js
 ```
@@ -24,11 +33,14 @@ $ touch src/models/Todo.js
 
 ```js
 // src/models/Todo.js
-import axios from 'axios'
+import $ from 'jquery-ajax'
 
 class TodoModel {
   static all(){
-    let request = axios.get("https://super-crud.herokuapp.com/todos")
+    let request = $.ajax({
+      url: "https://super-crud.herokuapp.com/todos",
+      method: 'GET'
+    })
     return request
   }
 }
@@ -44,9 +56,9 @@ export default TodoModel
   > In the `TodoModel` class, `all()` is a static method. What does this mean? A static method can be called without an **instance** of the class. This will allow us to call `all()` in the following way (without ***instantiating*** the class with new): `let todos = TodoModel.all()`. [More on Static Methods in JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes#Static_methods)
 
 
-6. Think critically about the `TodoModel.all` static method.  What is `axios`? What do you think it is doing in the last code snippet?
+6. Think critically about the `TodoModel.all` static method.  What is the `request` variable's value (that is, what does `$.ajax` return)?
 
-  > Axios is a tool for making AJAX requests, and its API is pretty intuitive! When we use the `all` method on our `TodoModel`, it will make a `GET` request to the super-crud url for all todos. We tell `all` to return the request so that we can chain promises from it. (The promises will tell our code what happens next.)
+  >  When we use the `all` method on our `TodoModel`, it will make a `GET` request to the super-crud url for all todos. jQuery's documentation tells us that `$.ajax` returns a **promise**. The `TodoModel.all` method saves this promise as `request` and returns it for use elsewhere in the code. In the next few steps, we'll see a reminder of how to tell our code what to do when the promise is resolved.
 
 ### Use `TodoModel` AJAX Call in `TodosContainer` Component
 
@@ -77,10 +89,10 @@ class TodosContainer extends Component {
 export default TodosContainer
 ```
 
-2. Check the browser console for the response from the super-crud database. There shold be an object logged in the console. 
+2. Check the browser console for the response from the super-crud database. There should be an object logged in the console.
 
 
-Now that the data is on the front end, the next series of steps focuses on how it will be presented in the view. 
+Now that the data is on the front end, the next series of steps focuses on how it will be presented in the view.
 
 
 ### Rendering A Todo
@@ -109,9 +121,9 @@ export default Todo
 <details><summary>click for an idea</summary>From the component, it's clear that <code>this.props.todo</code> is an object with keys <code>body</code> and <code>_id</code>.  It matches the super-crud data! Other fields the super-crud todos have that could be displayed include <code>priority</code> and <code>completed</code>.
 </details>
 
-3. Think critically about the code above. How will the component receive the `todo` in `props`? 
+3. Think critically about the code above. How will the component receive the `todo` in `props`?
 
-4. As a test, add a `Todo` component as part of what the `TodosContainer` component renders.  Remember to `import` `Todo`, and use any data you'd like for the body of the todo. 
+4. As a test, add a `Todo` component as part of what the `TodosContainer` component renders.  Remember to `import` `Todo`, and use any data you'd like for the body of the todo.
 
 ```js
 // src/containers/TodosContainer.js
@@ -141,7 +153,7 @@ export default TodosContainer
 
 5. Check the `/todos` page in the browser. The todo you wrote should be displayed on the page. Also, the `p` element around it should have `data-todos-index` equal to the `_id` you used -- check by inspecting the element!
 
- 
+
 ### Tracking Todos in a List
 
 1. To keep components organized, create a todo list component in  `src/components/TodoList.js`. Add the following code to the new component file:
@@ -223,7 +235,7 @@ export default TodosContainer
 
 ### Using Super-Crud Todo Data
 
-In this series of steps, you'll add the remainder of the code necessary to display todos from the super-crud API.  After adding the code, you'll examine each piece. 
+In this series of steps, you'll add the remainder of the code necessary to display todos from the super-crud API.  After adding the code, you'll examine each piece.
 
 1. Remove the `TodoModel.all` call from the `TodosContainer` component's `render` function.
 
@@ -248,7 +260,7 @@ class TodosContainer extends Component {
   fetchData(){
     TodoModel.all().then( (res) => {
       this.setState ({
-        todos: res.data.todos
+        todos: res.todos
       })
     })
   }
@@ -266,7 +278,7 @@ class TodosContainer extends Component {
 export default TodosContainer
 ```
 
-3. Check the `/todos` route in the browser. The todos from the super-crud JSON data should be rendered on the page. At this point, you can remove the `<h2>This is the todos container</h2>` element from the `TodosContainer` component. 
+3. Check the `/todos` route in the browser. The todos from the super-crud JSON data should be rendered on the page. At this point, you can remove the `<h2>This is the todos container</h2>` element from the `TodosContainer` component.
 
 4. Examine the following code snippet:
 
@@ -281,9 +293,9 @@ constructor(){
 
 The `constructor()` for a JavaScript class is a function that is called whenever an instance of the class is created. This constructor function will be called whenever a new `TodosContainer` component is created.
 
-The call to `super()` means this class will run the `constructor` function React defines for the `Component` class (you can tell `super` is the `Component` class because the todos container class `extends` `Component`. 
+The call to `super()` means this class will run the `constructor` function React defines for the `Component` class (you can tell `super` is the `Component` class because the todos container class `extends` `Component`.
 
-The final piece of code sets `this.state` to be an empty array. 
+The final piece of code sets `this.state` to be an empty array.
 
 * What will `this.state` be when a `TodosContainer` component is first created?
 
@@ -303,13 +315,13 @@ fetchData(){
   TodoModel.all().then( (res) => {
     console.log('TodoModel.all response:', res)
     this.setState ({
-      todos: res.data.todos
+      todos: res.todos
     })
   })
 }
 ```
 
-6. Explain the `fetchData` function's role in your own words. 
+6. Explain the `fetchData` function's role in your own words.
 
 <details><summary>click for an idea</summary>This function uses <code>TodoModel</code> to retrieve todos from the super-crud API. After that request completes, <code>then</code> the function changes the state of the container component. The new state has the value of <code>todos</code> be part of the data from the AJAX response.</details>
 
@@ -326,20 +338,20 @@ componentDidMount(){
 ```
 
 
-Every component in React undergoes a component lifecycle. There are several "hooks" throughout this lifecycle, and `componentDidMount` is a built-in hook that happens after a component renders. 
+Every component in React undergoes a component lifecycle. There are several "hooks" throughout this lifecycle, and `componentDidMount` is a built-in hook that happens after a component renders.
 
 > There are many hooks. A [great blog post](http://busypeoples.github.io/post/react-component-lifecycle/) goes into detail on the lifecycle of a component.
 
 
 8. Think critically about the last code snippet above. Why send a `GET` request after the TodoContainer component (and components inside it) have already been rendered?  For ideas, look for the `componentDidMount` section in [React's Component documentation](https://facebook.github.io/react/docs/react-component.html).
 
-<details><summary>click for related resources</summary> 
+<details><summary>click for related resources</summary>
 
 <a href="http://stackoverflow.com/questions/39338464/reactjs-why-is-the-convention-to-fetch-data-on-componentdidmount">Other devs have wondered about this too.</a> AJAX calls are asynchronous, and we'll always need to re-render after an AJAX call completes. Here's the <a href="https://facebook.github.io/react/docs/react-component.html#componentdidmount">Facebook recommendation</a> saying to make initial AJAX calls inside <code>componentDidMount</code>.</details>
 
 ### Sending State Updates from Parents to Children
 
-The state of the `TodosContainer` is simple. It has an array of `todos`. 
+The state of the `TodosContainer` is simple. It has an array of `todos`.
 
 1. Examine your app's components critically. Briefly consider the following questions:
 

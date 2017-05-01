@@ -1,7 +1,7 @@
 ## Sprint 4: Creating Todos
 
 
-Creating todos will require a form on the client side.  In this sprint, you'll create a `CreateTodoForm` component to handle that form. The new component will join `TodoList` as one of the children of the `TodosContainer` component. 
+Creating todos will require a form on the client side.  In this sprint, you'll create a `CreateTodoForm` component to handle that form. The new component will join `TodoList` as one of the children of the `TodosContainer` component.
 
 
 <!-- The state of the `CreateTodoForm` will have an effect on the state of the todos overall Before we build this feature out, there How can we pass state from a child component to a parent? The opposite is easy, because we're able to just pass properties to our child components. Child state to parent state is much more difficult because we can't pass properties like that. Its unidirectional. The answer? Callbacks.
@@ -102,7 +102,7 @@ class CreateTodoForm extends Component {
 
 7. For the event handler to keep `state` updated, there must be a `this.onInputChange` function.  Add the `onInputChange` function to the `CreateTodoForm` class.
 
-```js
+```jsx
 class CreateTodoForm extends Component {
   constructor(){
     super()
@@ -117,9 +117,10 @@ class CreateTodoForm extends Component {
   }
 
   // ...
+
 ```
 
-8. Modify the `onInputChange` function so that instead of logging a message to the console, it changes the state of this should have value `event.target.value`. 
+8. Modify the `onInputChange` function so that instead of logging a message to the console, it changes the state.  The `todo` in the state should have value `event.target.value`.
 
 Hint: for an example of setting state, you can reference the `TodosContainer` class's `fetchData` method.
 
@@ -129,7 +130,7 @@ Hint: for an example of setting state, you can reference the `TodosContainer` cl
 <form onSubmit={event => this.onFormSubmit(event)}>
 ```
 
-10. Create an `onFormSubmit` method inside the `CreateTodoForm` component class. 
+10. Create an `onFormSubmit` method inside the `CreateTodoForm` component class.
 
 ```js
 onFormSubmit(event){
@@ -145,7 +146,9 @@ onFormSubmit(event){
 
 > `onSubmit` is reserved JSX to define an event for form submission, almost identical to `ng-submit` in angular
 
-11. Think critically about the code snippet above. 
+> You **should** see an error in your browser console.
+
+11. Think critically about the code snippet above.
 
 * What does `event.PreventDefault()` do?
 
@@ -176,19 +179,23 @@ render(){
 }
 ```
 
-2. Think critically about the code above. 
+2. Think critically about the code above.
 
-> The `render` method for `TodosContainer` passes the `createTodo` function of the container component TO the `CreateTodoForm` component. 
+> The `render` method for `TodosContainer` passes the `createTodo` function of the container component TO the `CreateTodoForm` component.
 
 > The `bind(this)` portion of the code means the `createTodo` function will use THIS `TodosContainer` component as `this`, even if it's called from a different part of the code (like it will be, inside `CreateTodoForm`'s `onFormSubmit` method).
 
 
-3. The `createTodo` method should use the todo body passed in to make an AJAX request to the server.  AJAX is the role of the `TodoModel` class, though, so add a static `create` method to that model class. 
+3. The `createTodo` method should use the todo body passed in to make an AJAX request to the server.  AJAX is the role of the `TodoModel` class, though, so add a static `create` method to that model class.
 
 
 ```js
 static create(todo) {
-  let request = axios.post("https://super-crud.herokuapp.com/todos", todo)
+  let request = $.ajax({
+    url: "https://super-crud.herokuapp.com/todos",
+    method: 'POST',
+    data: todo
+  })
   return request
 }
 ```
@@ -202,9 +209,9 @@ createTodo(newBody) {
     completed: false
   }
   TodoModel.create(newTodo).then((res) => {
-    console.log('created todo', res.data)
+    console.log('created todo', res)
     let todos = this.state.todos
-    let newTodos = todos.push(res.data)
+    let newTodos = todos.push(res)
     this.setState({newTodos})
   })
 }
@@ -221,7 +228,7 @@ Remember that in the submit event of the form, we used a function `this.props.cr
 In `src/components/CreateTodoForm`:
 
 ```js
-onSubmit(event){
+onFormSubmit(event){
   event.preventDefault()
   let newTodo = this.state.todo
   this.props.createTodo(newTodo)
