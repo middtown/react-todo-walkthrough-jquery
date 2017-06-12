@@ -5,6 +5,7 @@ Create the React app.
 ```bash
 $ create-react-app my-react-todo
 $ cd my-react-todo
+$ npm runs start
 ```
 
 Navigate to [`localhost:3000`](http://localhost:3000) to see the boilerplate `create-react-app` React application.
