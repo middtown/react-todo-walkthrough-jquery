@@ -21,8 +21,6 @@ Components should do one thing and do it well.
 
 Resist the temptation to pack too much information into a component. As you progress you will get a better sense of how to minimize component code.
 
-> Think back to the Post component from the intro's class.
-
 #### Independent
 
 Components should increase cohesion and reduce coupling.
@@ -30,8 +28,6 @@ Components should increase cohesion and reduce coupling.
 Behavior in one component should not impact the behavior of another.
 
 In other words, components should rely on each other as little as possible.
-
-> But they should compliment one another, just like our Comment component did for Post in the intro's class.
 
 #### Reusable
 
