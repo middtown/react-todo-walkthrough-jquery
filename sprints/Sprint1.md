@@ -11,7 +11,7 @@ There is a lot to learn about React Router, and we'll just be scratching the sur
 
 ### Creating Routes
 
-1. Install `react-router` as a dependency with `npm install --save react-router@3.0.0`.  If you get errors on the next few steps, confirm that you have it installed by checking `package.json`.  
+1. Install `react-router` as a dependency with `npm install --save react-router@3.0.4`.  If you get errors on the next few steps, confirm that you have it installed by checking `package.json`.  
 
 > Note: react is still in development, and modules like `react-router` may change. This lab's solutions use `react-router` version 3.0.0.  The v3 documentation can be found through [ReactTraining](https://github.com/ReactTraining/react-router/tree/v3/docs).
 
@@ -141,3 +141,5 @@ import Header from './components/Header'
 7. Try clicking on the React Todos link. You should see a warning in the console: `Warning: [react-router] Location "/todos" did not match any routes`.  Does it make sense?  Where are your routes defined, so you can check?
 
 8. Confirm that `config/routes.js` only has a reference to `'/'`; there's no route for `/todos` yet.  Make a note in your `config/routes.js` file to remind yourself to add that route later!
+
+[Next!](https://github.com/wdi-atx-11/react-todo-walkthrough-jquery/blob/master/sprints/Sprint2.md)
