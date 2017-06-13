@@ -14,14 +14,14 @@ There are a lot of choices for which AJAX tools to use. Options include:
 
 - [jQuery](https://jquery.com/), which includes a `$.ajax` method for AJAX requests.
 
-> Since we're already familiar with jQuery, we'll use it here.  However, we won't need the entire jQuery library - React is going to handle DOM interactions for us.  Downloading the entire jQuery library would be a lot of extra space, so we'll use the `jquery-ajax` npm package, which just has `$.ajax` and other related jQuery functions.
+> Since we're already familiar with jQuery, we'll use it here.  
 
 ### Set Up Model File Structure
 
-1. Install `jquery-ajax` and create a `src/models` directory, which will manage AJAX requests for data. Also, make a `Todo.js` model file:
+1. Install `jquery` and create a `src/models` directory, which will manage AJAX requests for data. Also, make a `Todo.js` model file:
 
 ```bash
-$ npm install --save jquery-ajax
+$ npm install --save jquery
 $ mkdir src/models
 $ touch src/models/Todo.js
 ```
@@ -33,7 +33,7 @@ $ touch src/models/Todo.js
 
 ```js
 // src/models/Todo.js
-import $ from 'jquery-ajax'
+import $ from 'jquery'
 
 class TodoModel {
   static all(){
@@ -137,12 +137,16 @@ class TodosContainer extends Component {
     TodoModel.all().then( (res) => {
       console.log(res);
     })
+    
+    let todo = { _id: "58e3c74c93075e0011489f04",
+                 body: "Take a walk outside" }
+    
     return (
       <div className='todosContainer'>
         <h2>This is the todos container</h2>
         <Todo
-          key={"58e3c74c93075e0011489f04"}
-          todo={{"_id":"58e3c74c93075e0011489f04","body":"Take a walk outside","priority":5,"completed":false,"__v":0}}/>
+          key={todo._id}
+          todo={todo}/>
       </div>
     )
   }
@@ -217,9 +221,9 @@ class TodosContainer extends Component {
         <TodoList
           todos={
             [
-              {"_id":"58e3c74c93075e0011489f02","body":"Wash the dishes","priority":4,"completed":false,"__v":0},
-              {"_id":"58e3c74c93075e0011489f07","body":"Update resume with new skills","priority":2,"completed":false,"__v":0},
-              {"_id":"58e3c74c93075e0011489f05","body":"Buy nutritious groceries for the week","priority":2,"completed":false,"__v":0}
+              {"_id":"58e3c74c93075e0011489f02","body":"Wash the dishes"},
+              {"_id":"58e3c74c93075e0011489f07","body":"Update resume with new skills"},
+              {"_id":"58e3c74c93075e0011489f05","body":"Buy nutritious groceries for the week"}
             ]
           } />
       </div>
@@ -395,3 +399,6 @@ It is a pattern in React to send parts of a parent component's `state` into its 
 ### Pause and Reflect
 
 Most of the API's developers have access to are read-only. At this point, you know how to use React to display that data!
+
+
+[Next!](https://github.com/wdi-atx-11/react-todo-walkthrough-jquery/edit/master/sprints/Sprint4.md)
