@@ -46,7 +46,7 @@ export default TodosContainer
 // which file does this belong in?
 import TodosContainer from '../containers/TodosContainer'
 
-module.exports = (
+export default (
   <Route path='/' component={App}>
     <Route path='/todos' component={TodosContainer}/>
   </Route>
