@@ -137,3 +137,5 @@ span.deleteButton, span.toggleButton {
 }
 
 ```
+
+[Next!](https://github.com/wdi-atx-11/react-todo-walkthrough-jquery/blob/master/sprints/Sprint3.md)
