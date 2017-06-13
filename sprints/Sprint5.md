@@ -105,3 +105,6 @@ The <code>onDeleteTodo</code> function calls the <code>deleteTodo</code> method 
 
 After the <code>TodoModel.delete</code> method finishes, back in <code>TodosContainer</code>, all todos are grabbed from the container state. Then, the filter creates a new array that doesn't have the todo that was deleted. Finally, the method updates the state to have only the remaining todos.
 </details>
+
+
+[Next!](https://github.com/wdi-atx-11/react-todo-walkthrough-jquery/blob/master/sprints/Sprint6.md)
