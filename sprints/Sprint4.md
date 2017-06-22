@@ -49,6 +49,7 @@ render(){
     )
   }
 ```
+> Don't forget to `import` your new component as well!
 
 3. Briefly try out the form on the `/todos` page.  Identify which part of your code set up the text inside the input box.  What happens if you submit the form?  What happens if you try to change the input?
 
@@ -169,10 +170,10 @@ createTodo(newBody) {
 }
 render(){
   return (
-    <div className="todosComponent">
+    <div className="todosContainer">
       <CreateTodoForm
         createTodo={this.createTodo.bind(this)} />
-      <Todos
+      <TodoList
         todos={this.state.todos} />
     </div>
   )

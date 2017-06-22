@@ -50,7 +50,7 @@ class TodoList extends Component {
 
 
 ```js
-// src/components/TodosContainer.js
+// src/containers/TodosContainer.js
 // ...
 
 deleteTodo(todo){
@@ -76,7 +76,7 @@ render(){
 // ...
 static delete(todo){
   let request = $.ajax({
-    url: "https://super-crud.herokuapp.com/todos",
+    url: `https://super-crud.herokuapp.com/todos/${todo._id}`,
     method: 'DELETE'
   })
   return request
