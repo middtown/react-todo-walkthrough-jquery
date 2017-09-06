@@ -66,10 +66,10 @@ export default TodoModel
 
 For now, make a call to `TodoModel.all` inside the `TodosContainer` `render()` method for testing purposes.
 
-In `components/TodosContainer.js`:
+In `containers/TodosContainer.js`:
 
 ```js
-// src/components/TodosContainer.js
+// src/containers/TodosContainer.js
 import React, {Component} from 'react'
 import TodoModel from '../models/Todo'
 
