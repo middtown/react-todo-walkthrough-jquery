@@ -142,4 +142,4 @@ import Header from './components/Header'
 
 8. Confirm that `config/routes.js` only has a reference to `'/'`; there's no route for `/todos` yet.  Make a note in your `config/routes.js` file to remind yourself to add that route later!
 
-[Next!](https://github.com/wdi-atx-11/react-todo-walkthrough-jquery/blob/master/sprints/Sprint2.md)
+[Next!](https://github.com/den-materials/react-todo-walkthrough-jquery/blob/master/sprints/Sprint2.md)

@@ -139,4 +139,4 @@ span.deleteButton, span.toggleButton {
 ```
 > Note that you'll have to `import` these styles into your `index.js` file for your styles to show up.
 
-[Next!](https://github.com/wdi-atx-11/react-todo-walkthrough-jquery/blob/master/sprints/Sprint3.md)
+[Next!](https://github.com/den-materials/react-todo-walkthrough-jquery/blob/master/sprints/Sprint3.md)

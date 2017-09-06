@@ -107,4 +107,4 @@ After the <code>TodoModel.delete</code> method finishes, back in <code>TodosCont
 </details>
 
 
-[Next!](https://github.com/wdi-atx-11/react-todo-walkthrough-jquery/blob/master/sprints/Sprint6.md)
+[Next!](https://github.com/den-materials/react-todo-walkthrough-jquery/blob/master/sprints/Sprint6.md)

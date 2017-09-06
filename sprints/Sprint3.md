@@ -401,4 +401,4 @@ It is a pattern in React to send parts of a parent component's `state` into its 
 Most of the API's developers have access to are read-only. At this point, you know how to use React to display that data!
 
 
-[Next!](https://github.com/wdi-atx-11/react-todo-walkthrough-jquery/blob/master/sprints/Sprint4.md)
+[Next!](https://github.com/den-materials/react-todo-walkthrough-jquery/blob/master/sprints/Sprint4.md)

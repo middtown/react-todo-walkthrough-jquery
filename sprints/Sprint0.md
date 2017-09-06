@@ -51,4 +51,4 @@ export default App;
 > The `create-react-app` command installs and sets up a lot of useful tools.  A tool called `webpack` manages automatic re-rendering files change!  
 
 
-[Next!](https://github.com/wdi-atx-11/react-todo-walkthrough-jquery/blob/master/sprints/Sprint1.md)
+[Next!](https://github.com/den-materials/react-todo-walkthrough-jquery/blob/master/sprints/Sprint1.md)
