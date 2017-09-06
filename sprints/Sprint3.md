@@ -189,7 +189,7 @@ export default TodoList
 
 2. Think critically about the code above. The `map` method iterates through an array of todos and creates `todoArray`. What is inside the `todoArray`?
 
-<details><summary>click for an explanation</summary>The <code>todoArray</code> is an array of <code>Todo</code> components, with one component for each todo object in <code>thsi.props.todos</code>.  
+<details><summary>click for an explanation</summary>The <code>todoArray</code> is an array of <code>Todo</code> components, with one component for each todo object in <code>this.props.todos</code>.  
 </details>
 
 <br>
