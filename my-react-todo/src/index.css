@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: "Brush Script MT", cursive;
+  font-family: "Times New Roman", Times, serif;
 }
 
 header, .todos {
@@ -23,11 +23,11 @@ h2 {
 }
 
 h1, h2{
-  font-family: "Brush Script MT", cursive;
+  font-family: "Times New Roman", Times, serif;
 }
 
 p {
-  font-family: "Brush Script MT", cursive;
+  font-family: "Times New Roman", Times, serif;
   font-size: 2em;
 }
 
