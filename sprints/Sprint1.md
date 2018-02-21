@@ -1,5 +1,6 @@
 ## Sprint 1: React Router
 
+<<<<<<< HEAD
 We're going to use React Router!
 
 Client-side routing isn't strictly necessary for this application. However, client-side routing will let our single page app (SPA) keep the url in synch with what the user is seeing and doing as the page content changes. This is useful for deep linking and search engines!  
@@ -143,3 +144,6 @@ import Header from './components/Header'
 8. Confirm that `config/routes.js` only has a reference to `'/'`; there's no route for `/todos` yet.  Make a note in your `config/routes.js` file to remind yourself to add that route later!
 
 [Next!](https://github.com/den-materials/react-todo-walkthrough-jquery/blob/master/sprints/Sprint2.md)
+=======
+You are viewing this documentation on a solution branch. Please reference the documentation on the master branch.
+>>>>>>> sprint-2

@@ -1,5 +1,6 @@
 ## Sprint 3: Fetching Data with AJAX
 
+<<<<<<< HEAD
 React actually isn't as full-featured as some front-end frameworks like AngularJS or BackboneJS.  
 
 React relies on third party libraries to fetch data.
@@ -402,3 +403,6 @@ Most of the API's developers have access to are read-only. At this point, you kn
 
 
 [Next!](https://github.com/den-materials/react-todo-walkthrough-jquery/blob/master/sprints/Sprint4.md)
+=======
+You are viewing this documentation on a solution branch. Please reference the documentation on the master branch.
+>>>>>>> sprint-2

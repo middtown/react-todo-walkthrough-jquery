@@ -1,5 +1,6 @@
 ## Sprint 0: Getting Started
 
+<<<<<<< HEAD
 Create the React app. 
 
 ```bash
@@ -67,3 +68,6 @@ export default App;
 
 
 [Next!](https://github.com/den-materials/react-todo-walkthrough-jquery/blob/master/sprints/Sprint1.md)
+=======
+You are viewing this documentation on a solution branch. Please reference the documentation on the master branch.
+>>>>>>> sprint-2

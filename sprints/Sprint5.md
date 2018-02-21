@@ -1,5 +1,6 @@
 ## Sprint 5: Deleting Todos
 
+<<<<<<< HEAD
 Deleting will work similarly to creating todos, with regard to passing state through props.
 
 1. Update the `Todo` component to contain a UI element to delete a todo.
@@ -108,3 +109,6 @@ After the <code>TodoModel.delete</code> method finishes, back in <code>TodosCont
 
 
 [Next!](https://github.com/den-materials/react-todo-walkthrough-jquery/blob/master/sprints/Sprint6.md)
+=======
+You are viewing this documentation on a solution branch. Please reference the documentation on the master branch.
+>>>>>>> sprint-2

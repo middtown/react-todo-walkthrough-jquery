@@ -1,5 +1,6 @@
 ## Sprint 2: Containers and Nested Components
 
+<<<<<<< HEAD
 React components should be FIRST: 
 
 - focused,  
@@ -140,3 +141,6 @@ span.deleteButton, span.toggleButton {
 > Note that you'll have to `import` these styles into your `index.js` file for your styles to show up.
 
 [Next!](https://github.com/den-materials/react-todo-walkthrough-jquery/blob/master/sprints/Sprint3.md)
+=======
+You are viewing this documentation on a solution branch. Please reference the documentation on the master branch.
+>>>>>>> sprint-2

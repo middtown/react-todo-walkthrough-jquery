@@ -1,5 +1,6 @@
 ## Sprint 6: Editing and Updating Todos
 
+<<<<<<< HEAD
 
 
 ### `EditTodoForm` Component
@@ -590,3 +591,6 @@ export default EditTodoForm
 ``` -->
 
 [One last step!](http://www.wikihow.com/Get-a-Job)
+=======
+You are viewing this documentation on a solution branch. Please reference the documentation on the master branch.
+>>>>>>> sprint-2

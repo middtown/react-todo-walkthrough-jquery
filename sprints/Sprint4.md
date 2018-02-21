@@ -1,5 +1,6 @@
 ## Sprint 4: Creating Todos
 
+<<<<<<< HEAD
 
 Creating todos will require a form on the client side.  In this sprint, you'll create a `CreateTodoForm` component to handle that form. The new component will join `TodoList` as one of the children of the `TodosContainer` component.
 
@@ -257,3 +258,6 @@ render(){
 The argument passed in at the `CreateTodoForm` level(child) was state from that component. And now it updates state at the `TodosContainer` level(parent).
 
 [Next!](https://github.com/den-materials/react-todo-walkthrough-jquery/blob/master/sprints/Sprint5.md)
+=======
+You are viewing this documentation on a solution branch. Please reference the documentation on the master branch.
+>>>>>>> sprint-2
